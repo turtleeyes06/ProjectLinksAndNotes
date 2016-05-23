@@ -1,0 +1,15 @@
+I guess the normal way is to have multiple state machines. This way you can stick to atomic states which often makes your live a lot easier than having to deal with complex states.
+
+For example:
+
+Damage Mode: Normal, Invulnerable (as in just hit), invincible (as in got a star)
+Pace: Walking Mode, Running Mode
+Abilities: Normal, Super, Fire, Fly
+Movement Type: Walking, Swimming, Flying
+In object oriented designed there is the sate pattern for this. It boils down to having one interface per state machine. And a class per possible state which implements this interface.
+
+To give an example: There would be an interface DamageMode and subclasses NormalDamageMode, InvulnerableDamageMode and InvincibleDamageMode. Whenever the player collidates with an enemy the method DamageMode.collision(enemy) is called. It is handled by the class responsible for the current state.
+
+So if damageMode == NormalDamageMode the player will be damaged and the state variable will be set to InvulnerableDamageMode. In InvulnerableDamageMode nothing happens and in InvincibleDamageMode the enemy will be damaged. Of course there needs to be timers to go back from InvulnerableDamageMode and InvincibleDamageMode to NormalDamageMode.
+
+The main advantage of the state pattern compared to if-elseif-elseif-elseif-blocks is that it allows to structure your code better.
